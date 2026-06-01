@@ -45,4 +45,9 @@ chmod 600 "$HOME/.ssh/config"
 echo "✓ SSH config linked"
 
 echo ""
+
+# Custom oh-my-zsh theme
+mkdir -p "$HOME/.oh-my-zsh/custom/themes"
+cp "$DOTFILES/kphoen.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/kphoen.zsh-theme"
+echo "✓ Custom zsh theme installed"
 echo "✅ Done. Restart your terminal."

@@ -6,7 +6,7 @@ config.default_prog = { "wsl.exe", "--distribution", "Ubuntu", "--exec", "zsh", 
 -- ===== Window & transparency =====
 config.enable_wayland = true
 config.front_end = "WebGpu"
-config.window_background_opacity = 0.5      -- ~50% see-through
+config.window_background_opacity = 0.8      -- ~50% see-through
 config.text_background_opacity = 0.5
 config.macos_window_background_blur = 0     -- ignored on Linux; safe to leave
 config.window_padding = { left = 12, right = 12, top = 2, bottom = 0 }
@@ -72,7 +72,7 @@ config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.8 }
 
 -- Font
 config.font = wezterm.font("Hack")
-config.font_size = 13
+config.font_size = 11
 
 -- ===== Add spacing between tab titles =====
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
