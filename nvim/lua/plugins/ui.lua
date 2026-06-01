@@ -17,16 +17,12 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      vim.schedule(function()
-        require("nvim-treesitter.configs").setup({
-          ensure_installed = { "c", "cpp", "python", "lua", "cmake", "bash", "markdown" },
-          highlight = { enable = true },
-          indent = { enable = true },
-          auto_install = true,
-        })
-      end)
-    end,
+    opts = {
+      ensure_installed = { "c", "cpp", "python", "lua", "cmake", "bash", "markdown" },
+      highlight = { enable = true },
+      indent = { enable = true },
+      auto_install = true,
+    },
   },
   {
     "nvim-lualine/lualine.nvim",
