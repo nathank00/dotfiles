@@ -20,8 +20,9 @@ if grep -q microsoft /proc/version 2>/dev/null; then
     WIN_USER=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
     VSCODE_WIN="/mnt/c/Users/$WIN_USER/AppData/Roaming/Code/User"
     mkdir -p "$VSCODE_WIN"
-    ln -sf "$DOTFILES/vscode/settings.json" "$VSCODE_WIN/settings.json"
-    echo "✓ VSCode settings linked (Windows)"
+    cp "$DOTFILES/vscode/settings.json" "$VSCODE_WIN/settings.json"
+    echo "✓ VSCode settings copied (Windows)"
+
 # VSCode - Native Linux (not WSL2)
 elif [[ "$OSTYPE" == "linux"* ]]; then
     mkdir -p "$HOME/.config/Code/User"
