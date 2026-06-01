@@ -19,13 +19,20 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
     config = function()
-      local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      lspconfig.clangd.setup({ capabilities = capabilities, cmd = { "clangd", "--background-index", "--clang-tidy" } })
-      lspconfig.pyright.setup({ capabilities = capabilities })
-      lspconfig.lua_ls.setup({ capabilities = capabilities, settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
-      lspconfig.cmake.setup({ capabilities = capabilities })
+      vim.lsp.config("clangd", {
+        capabilities = capabilities,
+        cmd = { "clangd", "--background-index", "--clang-tidy" },
+      })
+      vim.lsp.config("pyright", { capabilities = capabilities })
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+        settings = { Lua = { diagnostics = { globals = { "vim" } } } },
+      })
+      vim.lsp.config("cmake", { capabilities = capabilities })
+
+      vim.lsp.enable({ "clangd", "pyright", "lua_ls", "cmake" })
 
       vim.diagnostic.config({
         virtual_text = true,
@@ -63,7 +70,8 @@ return {
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-          { name = "nvim_lsp" }, { name = "luasnip" }, { name = "buffer" }, { name = "path" },
+          { name = "nvim_lsp" }, { name = "luasnip" },
+          { name = "buffer" }, { name = "path" },
         }),
         window = {
           completion = cmp.config.window.bordered(),

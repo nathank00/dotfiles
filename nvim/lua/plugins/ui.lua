@@ -16,13 +16,16 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "cpp", "python", "lua", "cmake", "bash", "markdown" },
-        highlight = { enable = true },
-        indent = { enable = true },
-        auto_install = true,
-      })
+      vim.schedule(function()
+        require("nvim-treesitter.configs").setup({
+          ensure_installed = { "c", "cpp", "python", "lua", "cmake", "bash", "markdown" },
+          highlight = { enable = true },
+          indent = { enable = true },
+          auto_install = true,
+        })
+      end)
     end,
   },
   {
@@ -50,19 +53,26 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    config = function() require("nvim-autopairs").setup({ check_ts = true }) end,
+    config = function()
+      require("nvim-autopairs").setup({ check_ts = true })
+    end,
   },
   {
     "numToStr/Comment.nvim",
-    config = function() require("Comment").setup() end,
+    config = function()
+      require("Comment").setup()
+    end,
   },
   {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup({
         signs = {
-          add = { text = "│" }, change = { text = "│" },
-          delete = { text = "_" }, topdelete = { text = "‾" }, changedelete = { text = "~" },
+          add = { text = "│" },
+          change = { text = "│" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
         },
       })
     end,
@@ -77,6 +87,8 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    config = function() require("which-key").setup() end,
+    config = function()
+      require("which-key").setup()
+    end,
   },
 }
