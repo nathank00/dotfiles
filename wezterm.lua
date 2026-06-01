@@ -71,7 +71,7 @@ config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.8 }
 
 -- Font
 config.font = wezterm.font("Hack")
-config.font_size = 10
+config.font_size = 13
 
 -- ===== Add spacing between tab titles =====
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
