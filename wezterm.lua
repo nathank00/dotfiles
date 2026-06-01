@@ -1,6 +1,7 @@
 -- ~/.wezterm.lua
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
+config.default_prog = { "wsl.exe", "--distribution", "Ubuntu", "--exec", "zsh", "-l" }
 
 -- ===== Window & transparency =====
 config.enable_wayland = true
