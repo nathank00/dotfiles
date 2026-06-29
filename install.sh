@@ -34,6 +34,11 @@ fi
 ln -sf "$DOTFILES/wezterm.lua" "$HOME/.wezterm.lua"
 echo "✓ WezTerm config linked"
 
+# Ghostty
+mkdir -p "$HOME/.config/ghostty"
+ln -sf "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
+echo "✓ Ghostty config linked"
+
 # Zsh
 ln -sf "$DOTFILES/.zshrc" "$HOME/.zshrc"
 echo "✓ Zshrc linked"
@@ -48,6 +53,6 @@ echo ""
 
 # Custom oh-my-zsh theme
 mkdir -p "$HOME/.oh-my-zsh/custom/themes"
-cp "$DOTFILES/kphoen.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/kphoen.zsh-theme"
-echo "✓ Custom zsh theme installed"
+ln -sf "$DOTFILES/kphoen.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/kphoen.zsh-theme"
+echo "✓ Custom zsh theme linked"
 echo "✅ Done. Restart your terminal."

@@ -1,6 +1,5 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-cd ~
 # Rust/Cargo
 
 # Path to your Oh My Zsh installation.
@@ -115,3 +114,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+. "$HOME/.local/bin/env"
+
+# Ghostty shell integration (enables cwd inheritance on Cmd+T)
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+  source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+fi

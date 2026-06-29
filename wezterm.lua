@@ -1,7 +1,6 @@
 -- ~/.wezterm.lua
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
-config.default_prog = { "wsl.exe", "--distribution", "Ubuntu", "--exec", "zsh", "-l" }
 
 -- ===== Window & transparency =====
 config.enable_wayland = true
@@ -82,6 +81,15 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     { Text = "  " .. title .. "  " },
   }
 end)
+
+-- Cmd+T opens new tab inheriting the current pane's working directory
+config.keys = {
+  {
+    key = 't',
+    mods = 'SUPER',
+    action = wezterm.action.SpawnTab 'CurrentPaneDomain',
+  },
+}
 
 return config
 
