@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=System Settings
+Comment=Ubuntu settings: network, Bluetooth, sound, printers, users
+Exec=env XDG_CURRENT_DESKTOP=GNOME gnome-control-center
+Icon=preferences-system
+Terminal=false
+Categories=Settings;

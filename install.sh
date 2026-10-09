@@ -47,6 +47,10 @@ if [[ "$OSTYPE" == "linux"* ]] && ! grep -q microsoft /proc/version 2>/dev/null;
     mkdir -p "$HOME/.config/gtk-3.0"
     ln -sf "$DOTFILES/gtk/settings.ini" "$HOME/.config/gtk-3.0/settings.ini"
     echo "✓ i3, rofi and GTK dark setting linked"
+    # extra launcher entries (rofi reads ~/.local/share/applications)
+    mkdir -p "$HOME/.local/share/applications"
+    ln -sf "$DOTFILES/applications/system-settings.desktop" "$HOME/.local/share/applications/system-settings.desktop"
+    echo "✓ System Settings launcher entry linked"
     # the desktop widget (conky/), lock screen and window-snap scripts are
     # used by the i3 config straight from $DOTFILES; the wallpaper is a
     # local file at ~/Pictures/wallpaper.jpg and is not managed here
