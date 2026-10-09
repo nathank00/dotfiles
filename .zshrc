@@ -121,3 +121,5 @@ source $ZSH/oh-my-zsh.sh
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
   source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
 fi
+ulimit -S -n 2048
+ulimit -S -n 2048

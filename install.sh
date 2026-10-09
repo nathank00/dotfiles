@@ -6,7 +6,7 @@ echo "🔧 Setting up dotfiles..."
 
 # Neovim
 mkdir -p "$HOME/.config"
-ln -sf "$DOTFILES/nvim" "$HOME/.config/nvim"
+ln -sfn "$DOTFILES/nvim" "$HOME/.config/nvim"
 echo "✓ Neovim config linked"
 
 # VSCode - Mac
@@ -38,6 +38,14 @@ echo "✓ WezTerm config linked"
 mkdir -p "$HOME/.config/ghostty"
 ln -sf "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
 echo "✓ Ghostty config linked"
+
+# i3 + rofi - native Linux only (not WSL2, not Mac)
+if [[ "$OSTYPE" == "linux"* ]] && ! grep -q microsoft /proc/version 2>/dev/null; then
+    mkdir -p "$HOME/.config/i3" "$HOME/.config/rofi"
+    ln -sf "$DOTFILES/i3/config" "$HOME/.config/i3/config"
+    ln -sf "$DOTFILES/rofi/config.rasi" "$HOME/.config/rofi/config.rasi"
+    echo "✓ i3 and rofi configs linked"
+fi
 
 # Zsh
 ln -sf "$DOTFILES/.zshrc" "$HOME/.zshrc"

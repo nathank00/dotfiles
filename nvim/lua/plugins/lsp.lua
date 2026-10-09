@@ -10,7 +10,7 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "clangd", "pyright", "lua_ls", "cmake" },
+        ensure_installed = { "clangd", "pyright", "lua_ls" },
         automatic_installation = true,
       })
     end,
@@ -30,9 +30,7 @@ return {
         capabilities = capabilities,
         settings = { Lua = { diagnostics = { globals = { "vim" } } } },
       })
-      vim.lsp.config("cmake", { capabilities = capabilities })
-
-      vim.lsp.enable({ "clangd", "pyright", "lua_ls", "cmake" })
+      vim.lsp.enable({ "clangd", "pyright", "lua_ls" })
 
       vim.diagnostic.config({
         virtual_text = true,
