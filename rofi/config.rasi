@@ -6,6 +6,11 @@ configuration {
     display-run: ">";
     display-window: ">";
     drun-display-format: "{name}";
+    /* match what you type against names, not hidden fields like "System" categories */
+    drun-match-fields: "name,generic,keywords";
+    /* best match first, not alphabetical */
+    sort: true;
+    sorting-method: "fzf";
 }
 
 /* Drop rofi's built-in light theme so nothing below inherits from it */
