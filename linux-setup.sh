@@ -10,7 +10,8 @@ sudo apt install -y \
     zsh git curl build-essential tmux openssh-server \
     ripgrep fd-find unzip xclip nodejs npm python3-venv \
     fonts-hack fonts-jetbrains-mono fonts-ibm-plex extrepo \
-    i3 rofi feh dunst arandr conky-all xsecurelock x11-utils policykit-1-gnome
+    i3 rofi feh dunst arandr conky-all xsecurelock x11-utils policykit-1-gnome \
+    flameshot pavucontrol blueman
 
 echo "== Neovim (latest release) =="
 tmp="$(mktemp -d)"
@@ -54,6 +55,13 @@ fi
 echo "== dark mode for GTK apps =="
 if command -v gsettings >/dev/null; then
     gsettings set org.gnome.desktop.interface color-scheme prefer-dark || true
+fi
+
+echo "== screenshot tool colours (blue, no tray icon) =="
+if [ ! -f "$HOME/.config/flameshot/flameshot.ini" ]; then
+    mkdir -p "$HOME/.config/flameshot"
+    printf '[General]\ncontrastUiColor=#1f2937\ndisabledTrayIcon=true\nuiColor=#3b82f6\n' \
+        > "$HOME/.config/flameshot/flameshot.ini"
 fi
 
 echo "== link dotfiles =="

@@ -208,6 +208,9 @@ exec_always --no-startup-id xmodmap -e "keycode 9 = Escape asciitilde Escape asc
 bindsym $mod+Mod1+1 exec --no-startup-id python3 ~/dotfiles/i3/snap.py left
 bindsym $mod+Mod1+2 exec --no-startup-id python3 ~/dotfiles/i3/snap.py right
 
+# screenshot: drag a region, then Ctrl+C to copy or Ctrl+S to save (Mod+Shift+s)
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+
 # look
 font pango:JetBrains Mono 10
 default_border none
