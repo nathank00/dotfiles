@@ -24,6 +24,9 @@ Environment=WEBUI_AUTH=False
 Environment=ENABLE_OPENAI_API=false
 Environment=ENABLE_VERSION_UPDATE_CHECK=false
 Environment=ENABLE_COMMUNITY_SHARING=false
+# don't contact the internet in the background, not even to check for updates to the
+# memory-search component (ai/install.sh downloads that once, up front)
+Environment=OFFLINE_MODE=true
 
 # 127.0.0.1 = reachable from this machine only; change the port here if 8080 clashes
 ExecStart=%h/.local/bin/open-webui serve --host 127.0.0.1 --port 8080

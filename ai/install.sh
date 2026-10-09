@@ -20,7 +20,9 @@ if ! command -v ollama >/dev/null 2>&1; then
     curl -fsSL https://ollama.com/install.sh | sh
 fi
 sudo mkdir -p /etc/systemd/system/ollama.service.d
-printf '[Service]\nEnvironment="OLLAMA_CONTEXT_LENGTH=%s"\n' "$CONTEXT" \
+# OLLAMA_NO_CLOUD turns off Ollama's hosted models and web search, so a model
+# can only ever run on this machine
+printf '[Service]\nEnvironment="OLLAMA_CONTEXT_LENGTH=%s"\nEnvironment="OLLAMA_NO_CLOUD=1"\n' "$CONTEXT" \
     | sudo tee /etc/systemd/system/ollama.service.d/itx.conf >/dev/null
 sudo systemctl daemon-reload
 sudo systemctl restart ollama
@@ -39,6 +41,11 @@ if [ -x "$HOME/.local/bin/open-webui" ]; then
 else
     "$UV" tool install --python 3.12 open-webui
 fi
+
+echo "== memory-search component (one small download; Open WebUI then runs offline) =="
+"$("$UV" tool dir)/open-webui/bin/python" -c \
+    "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')" \
+    >/dev/null 2>&1 || echo "  (could not pre-download it; memory search may not work until this succeeds)"
 
 echo "== start Open WebUI in the background, now and at every boot =="
 mkdir -p "$HOME/.open-webui" "$HOME/.config/systemd/user" "$HOME/.local/share/applications"
