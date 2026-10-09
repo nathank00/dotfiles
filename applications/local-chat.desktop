@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Local Chat
+Comment=Private AI chat running on this machine (Open WebUI + Ollama)
+Exec=sh -c 'command -v librewolf >/dev/null && exec librewolf http://localhost:8080 || exec xdg-open http://localhost:8080'
+Icon=internet-chat
+Terminal=false
+Categories=Network;
+Keywords=ai;chat;llm;ollama;model;

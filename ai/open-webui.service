@@ -1,0 +1,34 @@
+# Open WebUI: the browser chat for the local model. Linked into
+# ~/.config/systemd/user/ by ai/install.sh and started automatically.
+#
+#   open it:   http://localhost:8080
+#   status:    systemctl --user status open-webui
+#   restart:   systemctl --user restart open-webui
+#   logs:      journalctl --user -u open-webui -e
+
+[Unit]
+Description=Open WebUI (local chat at http://localhost:8080)
+
+[Service]
+# chats, memories and settings all live in this one folder
+WorkingDirectory=%h/.open-webui
+Environment=DATA_DIR=%h/.open-webui
+
+# talk to the Ollama server on this machine only
+Environment=OLLAMA_BASE_URL=http://127.0.0.1:11434
+
+# no login screen: this only listens on this machine (see --host below)
+Environment=WEBUI_AUTH=False
+
+# nothing leaves the machine: no cloud provider, update check or sharing button
+Environment=ENABLE_OPENAI_API=false
+Environment=ENABLE_VERSION_UPDATE_CHECK=false
+Environment=ENABLE_COMMUNITY_SHARING=false
+
+# 127.0.0.1 = reachable from this machine only; change the port here if 8080 clashes
+ExecStart=%h/.local/bin/open-webui serve --host 127.0.0.1 --port 8080
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
