@@ -1,0 +1,178 @@
+/* ITX login screen: a small dark box with the user name and a password line.
+   Built on GTK's dark theme; everything below strips it down. */
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css");
+
+* {
+    font-family: "JetBrains Mono";
+    box-shadow: none;
+    text-shadow: none;
+    -gtk-icon-shadow: none;
+    outline-width: 0;
+}
+
+/* top panel: invisible */
+#panel_window,
+#panel_window menubar,
+#panel_window menuitem {
+    background: transparent;
+    color: transparent;
+    border: none;
+}
+
+/* the box: drawn by the inner frame, so the hidden button row below it
+   adds nothing visible */
+#login_window,
+#login_window.keycap,
+#login_window.background {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+#login_window frame#content_frame {
+    background-color: #0a0a0a;
+    border: 1px solid #1c1c1c;
+    border-radius: 0;
+    /* the layout inside already adds 24px at the sides and 36px on top */
+    padding: 0 8px 24px 8px;
+}
+
+#login_window frame > border,
+#login_window separator {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    min-height: 0;
+}
+
+/* user name: plain dim text, no button look */
+#user_combobox button,
+#user_combobox button:hover,
+#user_combobox button:checked {
+    background: transparent;
+    border: none;
+    padding: 0;
+    min-height: 0;
+    color: #7a7a7a;
+    font-size: 13px;
+    letter-spacing: 3px;
+}
+
+#user_combobox arrow {
+    min-width: 0;
+    min-height: 0;
+    -gtk-icon-source: none;
+}
+
+/* password and user name fields: a single line, no box */
+#login_window entry,
+#login_window entry:focus,
+#login_window entry:disabled {
+    background-color: transparent;
+    background-image: none;
+    border-image: none;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: #2a2a2a;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 8px 0;
+    margin-top: 12px;
+    min-width: 300px;
+    min-height: 0;
+    color: #f0f0f0;
+    caret-color: #3b82f6;
+    font-size: 15px;
+    letter-spacing: 4px;
+}
+
+#login_window entry:focus {
+    border-color: #3b82f6;
+}
+
+#login_window entry selection {
+    background-color: #3b82f6;
+    color: #0a0a0a;
+}
+
+/* messages such as "Incorrect password" */
+#greeter_infobar,
+#greeter_infobar revealer,
+#greeter_infobar box,
+#greeter_infobar > revealer > box {
+    background: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+}
+
+#message_label {
+    color: #ef4444;
+    font-size: 12px;
+}
+
+/* Log In / Cancel buttons: collapsed, Enter does the job */
+#buttonbox_frame {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+    opacity: 0;
+}
+
+#buttonbox_frame box {
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+#buttonbox_frame button {
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    font-size: 1px;
+}
+
+#user_image_border,
+#user_image {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+#user_combobox *,
+#user_combobox *:hover,
+#user_combobox *:focus,
+#user_combobox *:active,
+#user_combobox *:checked {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    border-image: none;
+    box-shadow: none;
+    outline: none;
+}
+
+/* remove every leftover line and fill inside the box */
+#login_window box,
+#login_window grid,
+#login_window buttonbox,
+#buttonbox_frame,
+#buttonbox_frame *,
+#user_combobox,
+#user_combobox box,
+#user_combobox cellview {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}

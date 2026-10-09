@@ -189,7 +189,8 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id xrandr --output HDMI-0 --primary --mode 2560x1440 --rate 180 --pos 0x0 --output DP-0 --mode 2560x1440 --rate 180 --pos 2560x0
 # wallpaper: a local file on this machine, not part of the dotfiles repo.
 # Replace ~/Pictures/wallpaper.jpg with any JPEG or PNG and press Mod+Shift+r.
-exec_always --no-startup-id sh -c 'feh --no-fehbg --bg-fill "$HOME/Pictures/wallpaper.jpg" 2>/dev/null || xsetroot -solid "#0a0a0a"'
+# The script also passes a copy to the login screen so the two match.
+exec_always --no-startup-id sh ~/dotfiles/i3/wallpaper.sh
 exec_always --no-startup-id sh ~/dotfiles/conky/start.sh
 
 # keyboard: Shift+Esc types ~ (compact keyboard where Esc and ~ share a key).

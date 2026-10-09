@@ -1,0 +1,51 @@
+#!/bin/sh
+# ITX boot menu: put two clean entries, Ubuntu and Windows, at the top.
+#
+# The Ubuntu entry is a copy of the one Ubuntu's own script (10_linux) writes,
+# so it always boots the current kernel. Ubuntu's standard entries still
+# follow below these two; they are off-screen until you press Down past them.
+#
+# This script must never fail: update-grub runs it on every kernel update.
+
+ubuntu_entry() {
+    [ -x /etc/grub.d/10_linux ] || return 0
+    entry="$(/etc/grub.d/10_linux 2>/dev/null | awk '
+        /^menuentry / && !started { started = 1; grab = 1 }
+        grab { print }
+        grab && /^}/ { exit }')"
+    # only use it if it is a complete Linux entry
+    printf '%s\n' "$entry" | head -n 1 | grep -q '^menuentry ' || return 0
+    printf '%s\n' "$entry" | tail -n 1 | grep -q '^}$' || return 0
+    printf '%s\n' "$entry" | grep -q '^[[:space:]]*linux[[:space:]]' || return 0
+    printf '%s\n' "$entry" | grep -q '^[[:space:]]*initrd[[:space:]]' || return 0
+    echo "menuentry ' ' --class itx_ubuntu \$menuentry_id_option 'ubuntu' {"
+    printf '%s\n' "$entry" | sed '1d'
+}
+
+windows_entry() {
+    [ -n "$ITX_ASSUME_WINDOWS" ] || [ -e /boot/efi/EFI/Microsoft/Boot/bootmgfw.efi ] || return 0
+    cat <<'ENTRY'
+menuentry ' ' --class itx_windows $menuentry_id_option 'windows' {
+	insmod part_gpt
+	insmod fat
+	insmod chain
+	search --no-floppy --file --set=root /EFI/Microsoft/Boot/bootmgfw.efi
+	chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+}
+ENTRY
+}
+
+placeholder_entry() {
+    # GRUB always draws at least three rows. This empty, do-nothing row takes
+    # the third one, so only the two labels are visible until you scroll.
+    cat <<'ENTRY'
+menuentry ' ' $menuentry_id_option 'itx-spacer' {
+	true
+}
+ENTRY
+}
+
+ubuntu_entry || true
+windows_entry || true
+placeholder_entry || true
+exit 0

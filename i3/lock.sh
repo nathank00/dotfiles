@@ -14,4 +14,9 @@ export XSECURELOCK_SHOW_LOCKS_AND_LATCHES=0
 export XSECURELOCK_SINGLE_AUTH_WINDOW=1
 # let the first key count, so the password can be typed straight away
 export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
+# hide the "Password:" label, if the filter script is present and runnable
+filter="$HOME/dotfiles/i3/lock-authproto.py"
+if [ -x "$filter" ]; then
+    export XSECURELOCK_AUTHPROTO="$filter"
+fi
 exec xsecurelock
