@@ -27,7 +27,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --color 0a0a0a
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -191,8 +191,8 @@ exec_always --no-startup-id xsetroot -solid "#0a0a0a"
 
 # look
 font pango:JetBrains Mono 10
-default_border pixel 2
-default_floating_border pixel 2
+default_border none
+default_floating_border none
 gaps inner 6
 client.focused          #3b82f6 #3b82f6 #0a0a0a #3b82f6 #3b82f6
 client.focused_inactive #2a2a2a #2a2a2a #9a9a9a #2a2a2a #2a2a2a
@@ -201,12 +201,18 @@ client.unfocused        #1a1a1a #1a1a1a #6a6a6a #1a1a1a #1a1a1a
 bar {
     status_command i3status
     position top
+    font pango:JetBrains Mono 10
+    padding 5px 14px
+    workspace_min_width 30
+    separator_symbol " "
+    tray_output primary
     colors {
         background #0a0a0a
-        statusline #c8c8c8
-        separator  #2a2a2a
-        focused_workspace  #3b82f6 #3b82f6 #0a0a0a
-        active_workspace   #2a2a2a #2a2a2a #c8c8c8
-        inactive_workspace #0a0a0a #0a0a0a #6a6a6a
+        statusline #8a8a8a
+        separator  #0a0a0a
+        focused_workspace  #0a0a0a #0a0a0a #3b82f6
+        active_workspace   #0a0a0a #0a0a0a #c8c8c8
+        inactive_workspace #0a0a0a #0a0a0a #4a4a4a
+        urgent_workspace   #0a0a0a #0a0a0a #ef4444
     }
 }

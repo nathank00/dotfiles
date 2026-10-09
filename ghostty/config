@@ -32,6 +32,9 @@ background-opacity = 0.8
 window-padding-x = 12
 window-padding-y = 2
 
+# Linux (GTK) only: no title bar. Has no effect on macOS.
+gtk-titlebar = false
+
 # Tabs
 macos-titlebar-style = tabs
 

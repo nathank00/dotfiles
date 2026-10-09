@@ -46,6 +46,11 @@ if [ "$(basename "$SHELL")" != "zsh" ]; then
     chsh -s "$(command -v zsh)"
 fi
 
+echo "== dark mode for GTK apps =="
+if command -v gsettings >/dev/null; then
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark || true
+fi
+
 echo "== link dotfiles =="
 bash "$HOME/dotfiles/install.sh"
 

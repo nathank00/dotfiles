@@ -1,56 +1,89 @@
 configuration {
     modi: "drun,run,window";
     show-icons: false;
-    font: "JetBrains Mono 12";
+    font: "JetBrains Mono 11";
+    display-drun: ">";
+    display-run: ">";
+    display-window: ">";
+    drun-display-format: "{name}";
 }
+
+/* Drop rofi's built-in light theme so nothing below inherits from it */
+@theme "/dev/null"
 
 * {
     bg: #0a0a0a;
-    bg-alt: #1a1a1a;
-    fg: #c8c8c8;
+    bg-sel: #161616;
+    fg: #7a7a7a;
+    fg-sel: #f0f0f0;
     accent: #3b82f6;
+    line: #1c1c1c;
     background-color: @bg;
     text-color: @fg;
+    border-color: @line;
 }
 
 window {
-    width: 560px;
+    width: 520px;
     location: center;
     anchor: center;
-    border: 2px;
-    border-color: @accent;
+    border: 1px;
+    border-color: @line;
     border-radius: 0;
+    padding: 0;
 }
 
 mainbox {
-    padding: 12px;
+    children: [ inputbar, listview ];
+    padding: 0;
+    spacing: 0;
 }
 
 inputbar {
     children: [ prompt, entry ];
-    spacing: 8px;
-    padding: 0 0 10px 0;
+    spacing: 12px;
+    padding: 16px 18px;
+    border: 0 0 1px 0;
+    border-color: @line;
 }
 
 prompt {
     text-color: @accent;
 }
 
+entry {
+    text-color: @fg-sel;
+    placeholder: "Search";
+    placeholder-color: #3a3a3a;
+    cursor: text;
+}
+
 listview {
-    lines: 8;
+    lines: 6;
+    columns: 1;
+    fixed-height: false;
+    dynamic: true;
     scrollbar: false;
+    padding: 6px 0;
+    spacing: 0;
+    border: 0;
 }
 
 element {
-    padding: 6px 8px;
+    children: [ element-text ];
+    padding: 9px 18px;
+    border: 0 0 0 2px;
+    border-color: @bg;
 }
 
 element selected {
-    background-color: @bg-alt;
-    text-color: @accent;
+    background-color: @bg-sel;
+    text-color: @fg-sel;
+    border-color: @accent;
 }
 
 element-text {
     background-color: inherit;
     text-color: inherit;
+    highlight: none;
 }
