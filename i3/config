@@ -27,7 +27,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --color 0a0a0a
+exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/dotfiles/i3/lock.sh
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -187,7 +187,12 @@ bindsym $mod+r mode "resize"
 
 # displays: HDMI left, DP right, same level
 exec_always --no-startup-id xrandr --output HDMI-0 --primary --mode 2560x1440 --rate 180 --pos 0x0 --output DP-0 --mode 2560x1440 --rate 180 --pos 2560x0
-exec_always --no-startup-id xsetroot -solid "#0a0a0a"
+exec_always --no-startup-id feh --no-fehbg --bg-fill ~/dotfiles/wallpaper/city.jpg
+exec_always --no-startup-id sh ~/dotfiles/conky/start.sh
+
+# snap the focused window to the left / right half of its screen (Mod+Alt+1 / Mod+Alt+2)
+bindsym $mod+Mod1+1 exec --no-startup-id python3 ~/dotfiles/i3/snap.py left
+bindsym $mod+Mod1+2 exec --no-startup-id python3 ~/dotfiles/i3/snap.py right
 
 # look
 font pango:JetBrains Mono 10
@@ -199,13 +204,14 @@ client.focused_inactive #2a2a2a #2a2a2a #9a9a9a #2a2a2a #2a2a2a
 client.unfocused        #1a1a1a #1a1a1a #6a6a6a #1a1a1a #1a1a1a
 
 bar {
-    status_command i3status
+    mode hide
+    hidden_state hide
+    modifier $mod
     position top
     font pango:JetBrains Mono 10
     padding 5px 14px
     workspace_min_width 30
-    separator_symbol " "
-    tray_output primary
+    tray_output none
     colors {
         background #0a0a0a
         statusline #8a8a8a

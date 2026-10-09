@@ -10,7 +10,7 @@ sudo apt install -y \
     zsh git curl build-essential tmux openssh-server \
     ripgrep fd-find unzip xclip nodejs npm python3-venv \
     fonts-hack fonts-jetbrains-mono extrepo \
-    i3 rofi feh dunst arandr
+    i3 rofi feh dunst arandr conky-all xsecurelock
 
 echo "== Neovim (latest release) =="
 tmp="$(mktemp -d)"
@@ -44,6 +44,11 @@ if [ ! -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
 fi
 if [ "$(basename "$SHELL")" != "zsh" ]; then
     chsh -s "$(command -v zsh)"
+fi
+
+echo "== no input-method daemon in X sessions (removes the EN tray icon) =="
+if command -v im-config >/dev/null; then
+    im-config -n none || true
 fi
 
 echo "== dark mode for GTK apps =="
