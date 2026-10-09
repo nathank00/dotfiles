@@ -115,7 +115,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-. "$HOME/.local/bin/env"
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 # Ghostty shell integration (enables cwd inheritance on Cmd+T)
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
