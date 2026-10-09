@@ -9,7 +9,7 @@ sudo apt update
 sudo apt install -y \
     zsh git curl build-essential tmux openssh-server \
     ripgrep fd-find unzip xclip nodejs npm python3-venv \
-    fonts-hack fonts-jetbrains-mono extrepo \
+    fonts-hack fonts-jetbrains-mono fonts-roboto extrepo \
     i3 rofi feh dunst arandr conky-all xsecurelock x11-utils
 
 echo "== Neovim (latest release) =="
