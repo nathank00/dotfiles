@@ -1,0 +1,83 @@
+/* Ghostty on Linux (GTK): Mac-style title bar with tabs, Dracula colors.
+   Loaded by gtk-custom-css in ./config; macOS never reads this file.
+   With gtk-titlebar-style = tabs there is no headerbar: the tab bar is the
+   title bar, and its buttons live in it. Element names come from Ghostty's
+   window.ui and libadwaita (AdwTabBar, AdwToolbarView).
+   Live-edit with: GTK_DEBUG=interactive ghostty */
+
+/* Title bar: the terminal's background (#282A36) at the same 0.8 opacity,
+   so it blends into the window like on the Mac */
+toolbarview > .top-bar,
+tabbar,
+tabbar .box {
+  background-color: rgba(40, 42, 54, 0.8);
+  color: #FFFFFF;
+  box-shadow: none;
+  border: none;
+}
+
+/* Compact pills: only the active tab gets a background */
+tabbar tab {
+  margin: 5px 2px;
+  padding: 0 10px;
+  min-height: 24px;
+  border-radius: 999px;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+tabbar tab:hover {
+  background-color: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Active tab: soft Dracula purple (#BD93F9) pill */
+tabbar tab:selected {
+  background-color: rgba(189, 147, 249, 0.35);
+  color: #FFFFFF;
+}
+
+/* Close button only on the active or hovered tab */
+tabbar tab .tab-close-button {
+  opacity: 0;
+}
+
+tabbar tab:hover .tab-close-button,
+tabbar tab:selected .tab-close-button {
+  opacity: 1;
+}
+
+/* No divider lines between tabs */
+tabbar separator {
+  background: none;
+  min-width: 0;
+  opacity: 0;
+}
+
+/* Hide the title bar buttons (new tab, tab overview, menu, minimize,
+   maximize, close): i3 manages the windows, and keybinds cover the rest.
+   GTK CSS has no display: none, so shrink them to nothing instead. */
+tabbar windowcontrols,
+tabbar windowcontrols button,
+tabbar splitbutton,
+tabbar splitbutton button,
+tabbar menubutton,
+tabbar menubutton button,
+tabbar button.toggle {
+  opacity: 0;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+tabbar windowcontrols image,
+tabbar splitbutton image,
+tabbar splitbutton arrow,
+tabbar menubutton image,
+tabbar button.toggle image {
+  -gtk-icon-size: 0;
+  min-width: 0;
+  min-height: 0;
+}

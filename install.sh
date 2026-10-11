@@ -44,9 +44,10 @@ if [[ "$OSTYPE" == "linux"* ]] && ! grep -q microsoft /proc/version 2>/dev/null;
     mkdir -p "$HOME/.config/i3" "$HOME/.config/rofi"
     ln -sf "$DOTFILES/i3/config" "$HOME/.config/i3/config"
     ln -sf "$DOTFILES/rofi/config.rasi" "$HOME/.config/rofi/config.rasi"
+    ln -sf "$DOTFILES/ghostty/tabs.css" "$HOME/.config/ghostty/tabs.css"
     mkdir -p "$HOME/.config/gtk-3.0"
     ln -sf "$DOTFILES/gtk/settings.ini" "$HOME/.config/gtk-3.0/settings.ini"
-    echo "✓ i3, rofi and GTK dark setting linked"
+    echo "✓ i3, rofi, Ghostty tab style and GTK dark setting linked"
     # extra launcher entries (rofi reads ~/.local/share/applications)
     mkdir -p "$HOME/.local/share/applications"
     ln -sf "$DOTFILES/applications/system-settings.desktop" "$HOME/.local/share/applications/system-settings.desktop"

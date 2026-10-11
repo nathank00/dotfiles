@@ -123,3 +123,4 @@ if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
 fi
 ulimit -S -n 2048
 ulimit -S -n 2048
+export PATH="$HOME/.local/bin:$PATH"

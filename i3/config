@@ -33,6 +33,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/dotfiles/i3/lock.sh
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+# Compositor: needed for transparent windows (Ghostty's background-opacity)
+exec --no-startup-id picom
+
 # Password prompt for apps that need admin rights (App Center, Settings, ...).
 # GNOME provides this itself; i3 does not, so installs fail without it.
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1

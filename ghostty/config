@@ -32,14 +32,24 @@ background-opacity = 0.8
 window-padding-x = 12
 window-padding-y = 2
 
-# Linux (GTK) only: no title bar. Has no effect on macOS.
-gtk-titlebar = false
-
 # Shift+Esc types ~ (for a compact keyboard where Esc and ~ share a key)
 keybind = shift+escape=text:~
 
-# Tabs
-macos-titlebar-style = tabs
-
 shell-integration = zsh
 window-inherit-working-directory = true
+
+# --- macOS only (Linux ignores macos-* options) ---
+# Tabs live in the title bar
+macos-titlebar-style = tabs
+
+# --- Linux only (macOS ignores gtk-* options) ---
+# Same layout as the Mac: tabs merged into the title bar, no separate tab strip
+gtk-titlebar = true
+gtk-titlebar-style = tabs
+gtk-toolbar-style = flat
+# Compact tabs sized to their titles instead of stretching across the bar
+gtk-wide-tabs = false
+# Colors and shape of the title bar and tabs. The file is linked next to this
+# config by install.sh on Linux only; ? skips it quietly if it is missing.
+gtk-custom-css = ?tabs.css
+# Transparency on Linux also needs a compositor (picom, started from i3/config)
