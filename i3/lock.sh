@@ -1,5 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 # Lock screen: black, with one mark per typed key and a blinking cursor.
+
+# i3 starts this with "sh"; the compositor handling below needs bash.
+[ -n "$BASH_VERSION" ] || exec bash "$0" "$@"
+
 export XSECURELOCK_PASSWORD_PROMPT=asterisks
 export XSECURELOCK_AUTH_CURSOR_BLINK=1
 export XSECURELOCK_FONT='JetBrains Mono:size=16'
@@ -19,4 +23,40 @@ filter="$HOME/dotfiles/i3/lock-authproto.py"
 if [ -x "$filter" ]; then
     export XSECURELOCK_AUTHPROTO="$filter"
 fi
-exec xsecurelock
+
+# A compositor (picom) paints over the lock screen, and xsecurelock then covers
+# everything with "INCOMPATIBLE COMPOSITOR, PLEASE FIX!". Its two built-in
+# workarounds can let the desktop show through instead, so the compositor is
+# simply stopped while the screen is locked and started again, exactly as it
+# was running, after unlocking.
+picom_cmd=()
+picom_pid=$(pgrep -x -u "$(id -u)" picom | head -n 1)
+if [ -n "$picom_pid" ]; then
+    mapfile -d '' -t picom_cmd < "/proc/$picom_pid/cmdline"
+    pkill -x -u "$(id -u)" picom
+    for _ in 1 2 3 4 5 6 7 8 9 10; do
+        pgrep -x -u "$(id -u)" picom >/dev/null || break
+        sleep 0.1
+    done
+fi
+
+xsecurelock &
+lock_pid=$!
+
+# xss-lock hands over a "hold off sleeping until locked" handle. xsecurelock
+# releases its copy once the screen is locked; release this script's copy too,
+# or every suspend would wait several seconds for nothing.
+case "$XSS_SLEEP_LOCK_FD" in
+    ''|*[!0-9]*) ;;
+    *) exec {XSS_SLEEP_LOCK_FD}<&- ;;
+esac
+
+# if asked to stop (for example "loginctl unlock-session"), unlock
+trap 'kill "$lock_pid" 2>/dev/null' TERM INT HUP
+while kill -0 "$lock_pid" 2>/dev/null; do
+    wait "$lock_pid"
+done
+
+if [ "${#picom_cmd[@]}" -gt 0 ]; then
+    setsid -f "${picom_cmd[@]}" >/dev/null 2>&1 </dev/null
+fi
