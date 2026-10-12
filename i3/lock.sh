@@ -40,6 +40,14 @@ if [ -n "$picom_pid" ]; then
     done
 fi
 
+# Note whether the monitors switch off while locked, or the PC sleeps, so the
+# DisplayPort link can be set up again after unlocking (see display-reset.sh).
+slept_seconds() {
+    python3 -c 'import time; print(int(time.clock_gettime(time.CLOCK_BOOTTIME) - time.monotonic()))'
+}
+slept_before=$(slept_seconds)
+monitors_off=$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/lock-monitors-off.XXXXXX")
+
 xsecurelock &
 lock_pid=$!
 
@@ -51,11 +59,30 @@ case "$XSS_SLEEP_LOCK_FD" in
     *) exec {XSS_SLEEP_LOCK_FD}<&- ;;
 esac
 
+# check the monitors' power state every few seconds while locked
+(
+    while kill -0 "$lock_pid" 2>/dev/null; do
+        state=$(xset q 2>/dev/null | sed -n 's/.*Monitor is //p')
+        if [ -n "$state" ] && [ "$state" != "On" ]; then
+            echo "$state" > "$monitors_off"
+        fi
+        sleep 5
+    done
+) &
+watch_pid=$!
+
 # if asked to stop (for example "loginctl unlock-session"), unlock
 trap 'kill "$lock_pid" 2>/dev/null' TERM INT HUP
 while kill -0 "$lock_pid" 2>/dev/null; do
     wait "$lock_pid"
 done
+kill "$watch_pid" 2>/dev/null
+
+# unlocked: if the monitors were off (or the PC slept), reset the DisplayPort link
+if [ -s "$monitors_off" ] || [ "$(slept_seconds)" -gt $((slept_before + 5)) ]; then
+    sh "$HOME/dotfiles/i3/display-reset.sh" >/dev/null 2>&1
+fi
+rm -f "$monitors_off"
 
 if [ "${#picom_cmd[@]}" -gt 0 ]; then
     setsid -f "${picom_cmd[@]}" >/dev/null 2>&1 </dev/null

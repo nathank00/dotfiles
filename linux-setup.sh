@@ -11,7 +11,7 @@ sudo apt install -y \
     ripgrep fd-find unzip xclip nodejs npm python3-venv \
     fonts-hack fonts-jetbrains-mono fonts-ibm-plex extrepo \
     i3 rofi feh dunst arandr conky-all xsecurelock x11-utils policykit-1-gnome \
-    flameshot pavucontrol blueman picom
+    flameshot pavucontrol blueman picom x11-xserver-utils
 
 echo "== Neovim (latest release) =="
 tmp="$(mktemp -d)"
