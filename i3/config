@@ -207,9 +207,16 @@ exec_always --no-startup-id sh ~/dotfiles/conky/start.sh
 # A replugged keyboard loses this until the next Mod+Shift+r.
 exec_always --no-startup-id xmodmap -e "keycode 9 = Escape asciitilde Escape asciitilde"
 
-# snap the focused window to the left / right half of its screen (Mod+Alt+1 / Mod+Alt+2)
+# place the focused window (sizes are set in i3/snap.py)
+#   Mod+Alt+1 / 2   left / right half
+#   Mod+Alt+-       small, centred (a quarter of the screen)
+#   Mod+Alt+/       large, centred (80% of width and height)
+#   Mod+Alt+=       the whole screen
 bindsym $mod+Mod1+1 exec --no-startup-id python3 ~/dotfiles/i3/snap.py left
 bindsym $mod+Mod1+2 exec --no-startup-id python3 ~/dotfiles/i3/snap.py right
+bindsym $mod+Mod1+minus exec --no-startup-id python3 ~/dotfiles/i3/snap.py small
+bindsym $mod+Mod1+slash exec --no-startup-id python3 ~/dotfiles/i3/snap.py large
+bindsym $mod+Mod1+equal exec --no-startup-id python3 ~/dotfiles/i3/snap.py full
 
 # screenshot: drag a region, then Ctrl+C to copy or Ctrl+S to save (Mod+Shift+s)
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
