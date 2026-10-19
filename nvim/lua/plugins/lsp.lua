@@ -9,8 +9,15 @@ return {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
     config = function()
+      -- Mason has no clangd build for Linux arm64 (the Pi); there the system
+      -- clangd from apt is used instead (pi-setup.sh installs it)
+      local servers = { "pyright", "lua_ls" }
+      local uname = vim.uv.os_uname()
+      if not (uname.sysname == "Linux" and uname.machine == "aarch64") then
+        table.insert(servers, 1, "clangd")
+      end
       require("mason-lspconfig").setup({
-        ensure_installed = { "clangd", "pyright", "lua_ls" },
+        ensure_installed = servers,
         automatic_installation = true,
       })
     end,
