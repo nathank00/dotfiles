@@ -155,6 +155,14 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# step through desktops on the current monitor (Ctrl+Alt+Left/Right);
+# add Shift to take the focused window along. Going right past the last
+# desktop opens a new one. See i3/ws.py.
+bindsym Control+Mod1+Left exec --no-startup-id python3 ~/dotfiles/i3/ws.py prev
+bindsym Control+Mod1+Right exec --no-startup-id python3 ~/dotfiles/i3/ws.py next
+bindsym Control+Mod1+Shift+Left exec --no-startup-id python3 ~/dotfiles/i3/ws.py prev move
+bindsym Control+Mod1+Shift+Right exec --no-startup-id python3 ~/dotfiles/i3/ws.py next move
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
