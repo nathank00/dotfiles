@@ -17,7 +17,6 @@ opt.cursorline = true
 opt.scrolloff = 8
 opt.sidescrolloff = 8
 opt.wrap = false
-opt.colorcolumn = "100"
 opt.splitright = true
 opt.splitbelow = true
 opt.swapfile = false
